@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MarielaAI Website</title>
+  <link rel="icon" href="favicon.ico" />
+  <link href="../src/output.css" rel="stylesheet">
+  <!-- Carga de Tailwind CSS vía CDN -->
+</head>
+<body class="min-h-screen flex flex-col">
+  <!-- Contenedor principal -->
+  <div class="w-[97%] flex flex-row min-h-screen p-4">
+    <!-- Sidebar -->
+    <div id="sidebar" class="hidden md:block w-64 bg-blue-200 p-4">
+      <h2 class="text-xl font-bold mb-4">Sidebar</h2>
+      <p>This is some basic placeholder text for the sidebar.</p>
+      <!-- Contenedor principal para los botones -->
+      <div class="space-y-2 mt-4">
+        <button class="w-full px-4 py-2 bg-green-500 text-white font-semibold rounded hover:bg-green-600">
+          HOME
+        </button>
+        <button class="w-full px-4 py-2 bg-green-500 text-white font-semibold rounded hover:bg-green-600">
+          CONTACT
+        </button>
+      </div>
+    </div>
+    <!-- Contenido principal -->
+    <div class="flex-1 flex flex-col">
+      <!-- Navbar -->
+      <nav class="flex items-center mx-auto justify-between bg-blue-500 p-4">
+        <!-- Enlaces de navegación -->
+        <ul id="navLinks" class="flex items-center space-x-4 text-white">
+          <li><a href="#home" class="hover:text-blue-500">HOME</a></li>
+          <li><a href="#contact" class="hover:text-blue-500">CONTACT</a></li>
+        </ul>
+      </nav>
+      <!-- Contenido centrado -->
+      <div class="flex-1 flex items-center justify-center p-4">
+        <!-- Sección AI Assistant -->
+        <div class="border border-gray-300 dark:border-gray-600 p-4 rounded w-full max-w-lg">
+          <button id="toggleAiAssistant" class="mb-4 px-4 py-2 bg-blue-500 text-white rounded">
+            Open AI Assistant
+          </button>
+          <div id="aiAssistantPanel" class="hidden">
+            <h2 class="text-xl font-bold mb-2">Ask our AI Assistant</h2>
+            <textarea id="userQuestion" class="w-full p-2 border border-gray-300 rounded mb-2" placeholder="Type your question here..." rows="4"></textarea>
+            <button id="sendQuestion" class="mb-2 px-4 py-2 bg-green-500 text-white rounded">Send</button>
+            <textarea id="aiResponse" class="w-full p-2 border border-gray-300 rounded" placeholder="AI response will appear here..." rows="4" readonly></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="./index.js"></script>
+</html>
