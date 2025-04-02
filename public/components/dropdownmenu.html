@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="../../src/output.css" rel="stylesheet">
+</head>
+<body>
+    <div class="relative inline-block text-left" id="dropdownWrapper">
+        <button
+          id="dropdownButton"
+          class="flex items-center rounded-[5px] px-5 py-[13px] bg-gray-800 text-white text-base font-medium"
+        >
+          Dropdown Button
+          <span class="pl-4">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              class="fill-current"
+            >
+              <path
+                d="M10 14.25C9.8125 14.25 9.65625 14.1875 9.5 14.0625L2.3125 7C2.03125 6.71875 2.03125 6.28125 2.3125 6C2.59375 5.71875 3.03125 5.71875 3.3125 6L10 12.5312L16.6875 5.9375C16.9688 5.65625 17.4063 5.65625 17.6875 5.9375C17.9687 6.21875 17.9687 6.65625 17.6875 6.9375L10.5 14C10.3437 14.1563 10.1875 14.25 10 14.25Z"
+              />
+            </svg>
+          </span>
+        </button>
+      
+        <div
+          id="dropdownMenu"
+          class="absolute left-0 z-40 mt-2 w-full rounded-md bg-gray-800 py-2 opacity-0 invisible transition-all duration-200"
+        >
+          <a href="#" class="block py-2 px-5 text-base text-gray-400 hover:text-white">Dashboard</a>
+          <a href="#" class="block py-2 px-5 text-base text-gray-400 hover:text-white">Preview</a>
+          <a href="#" class="block py-2 px-5 text-base text-gray-400 hover:text-white">Button</a>
+          <a href="#" class="block py-2 px-5 text-base text-gray-400 hover:text-white">Subscribe</a>
+        </div>
+      </div>
+          
+</body>
+<script src="./scripts/dropdownmenu.js"></script>
+</html>
+
+

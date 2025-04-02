@@ -1,57 +1,227 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MarielaAI Website</title>
-  <link rel="icon" href="favicon.ico" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diseño Web con IA</title>
+  <!-- Enlaza tu Tailwind generado -->
   <link href="../src/output.css" rel="stylesheet">
-  <!-- Carga de Tailwind CSS vía CDN -->
+  <!-- Carga Alpine.js -->
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+ 
 </head>
-<body class="min-h-screen flex flex-col">
-  <!-- Contenedor principal -->
-  <div class="w-[97%] flex flex-row min-h-screen p-4">
-    <!-- Sidebar -->
-    <div id="sidebar" class="hidden md:block w-64 bg-blue-200 p-4">
-      <h2 class="text-xl font-bold mb-4">Sidebar</h2>
-      <p>This is some basic placeholder text for the sidebar.</p>
-      <!-- Contenedor principal para los botones -->
-      <div class="space-y-2 mt-4">
-        <button class="w-full px-4 py-2 bg-green-500 text-white font-semibold rounded hover:bg-green-600">
-          HOME
-        </button>
-        <button class="w-full px-4 py-2 bg-green-500 text-white font-semibold rounded hover:bg-green-600">
-          CONTACT
-        </button>
-      </div>
-    </div>
-    <!-- Contenido principal -->
-    <div class="flex-1 flex flex-col">
-      <!-- Navbar -->
-      <nav class="flex items-center mx-auto justify-between bg-blue-500 p-4">
-        <!-- Enlaces de navegación -->
-        <ul id="navLinks" class="flex items-center space-x-4 text-white">
-          <li><a href="#home" class="hover:text-blue-500">HOME</a></li>
-          <li><a href="#contact" class="hover:text-blue-500">CONTACT</a></li>
-        </ul>
-      </nav>
-      <!-- Contenido centrado -->
-      <div class="flex-1 flex items-center justify-center p-4">
-        <!-- Sección AI Assistant -->
-        <div class="border border-gray-300 dark:border-gray-600 p-4 rounded w-full max-w-lg">
-          <button id="toggleAiAssistant" class="mb-4 px-4 py-2 bg-blue-500 text-white rounded">
-            Open AI Assistant
+<body class="flex bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen">
+
+  <!-- SIDEBAR (collapse.html) -->
+  <aside class="flex flex-col items-center w-16 h-screen py-8 bg-white border-r dark:bg-gray-900 dark:border-gray-700 overflow-visible">
+    <!-- Navegación vertical de íconos -->
+    <nav class="flex flex-col flex-1 space-y-6">
+      <a href="#">
+        <img class="w-auto h-6" src="../img/marielaai_logo.ico" alt="Logo">
+      </a>
+
+      <!-- MULTILEVEL DROPDOWN -->
+      <section class="p-1.5">
+        <div x-data="multilevel" class="relative">
+          <!-- Botón del dropdown -->
+          <button x-bind="trigger" 
+                  class="p-1.5 text-gray-700 transition-colors duration-200 rounded-lg dark:text-gray-200 dark:hover:bg-gray-800 hover:bg-gray-100">
+            <svg xmlns="http://www.w3.org/2000/svg" 
+                 fill="none" 
+                 viewBox="0 0 24 24" 
+                 stroke-width="1.5" 
+                 stroke="currentColor" 
+                 class="w-6 h-6">
+              <path stroke-linecap="round" 
+                    stroke-linejoin="round" 
+                    d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+            </svg>
           </button>
-          <div id="aiAssistantPanel" class="hidden">
-            <h2 class="text-xl font-bold mb-2">Ask our AI Assistant</h2>
-            <textarea id="userQuestion" class="w-full p-2 border border-gray-300 rounded mb-2" placeholder="Type your question here..." rows="4"></textarea>
-            <button id="sendQuestion" class="mb-2 px-4 py-2 bg-green-500 text-white rounded">Send</button>
-            <textarea id="aiResponse" class="w-full p-2 border border-gray-300 rounded" placeholder="AI response will appear here..." rows="4" readonly></textarea>
+
+          <!-- Menú desplegable -->
+          <div 
+          class="absolute left-16 top-0 z-50 w-48 py-2 origin-left bg-white rounded-md shadow-xl dark:bg-gray-800"
+          x-bind="dialogue" 
+          >
+            <template x-for="item in items">
+              <a x-bind:href="item.URL" 
+                 class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+                <span x-text="item.Text"></span>
+                <template x-if="item.Text === 'Keyboard shortcuts' || item.Text === 'Invite colleagues'">
+                  <hr class="border-gray-200 dark:border-gray-700">
+                </template>
+              </a>
+
+            </template>
+          </div>
+        </div>
+      </section>
+
+      <!-- Íconos del sidebar -->
+      <a href="#" class="p-1.5 text-gray-700 transition-colors duration-200 rounded-lg dark:text-gray-200 dark:hover:bg-gray-800 hover:bg-gray-100">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+        </svg>
+      </a>
+      <a href="#" class="p-1.5 text-gray-700 transition-colors duration-200 rounded-lg dark:text-gray-200 dark:hover:bg-gray-800 hover:bg-gray-100">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0118 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3l1.5 1.5 3-3.75" />
+        </svg>
+      </a>
+      <a href="#" class="p-1.5 text-gray-700 transition-colors duration-200 rounded-lg dark:text-gray-200 dark:hover:bg-gray-800 hover:bg-gray-100\">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 3v1.5M3 21v-6m0 0l2.77-.693a9 9 0 016.208.682l.108.054a9 9 0 006.086.71l3.114-.732a48.524 48.524 0 01-.005-10.499l-3.11.732a9 9 0 01-6.085-.711l-.108-.054a9 9 0 00-6.208-.682L3 4.5M3 15V4.5" />
+        </svg>
+      </a>
+      <a href="#" class="p-1.5 text-gray-700 transition-colors duration-200 rounded-lg dark:text-gray-200 dark:hover:bg-gray-800 hover:bg-gray-100\">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+        </svg>
+      </a>
+    </nav>
+
+    <div class="flex flex-col space-y-6 mt-8">
+      <a href="#" class="p-1.5 text-gray-700 transition-colors duration-200 rounded-lg dark:text-gray-200 dark:bg-gray-800 bg-gray-100">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 011.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 01-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 01-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.505-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.107-1.204l-.527-.738a1.125 1.125 0 01.12-1.45l.773-.773a1.125 1.125 0 011.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+      </a>
+      <a href="#">
+        <img class="object-cover w-8 h-8 rounded-full" src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=880&amp;h=880&amp;q=100\" alt="Avatar">
+      </a>
+    </div>
+  </aside>
+  <!-- FIN SIDEBAR -->
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="flex-1 flex flex-col">
+
+    <!-- NAVBAR -->
+    <nav class="bg-white shadow dark:bg-gray-800" x-data="hamburguer">
+      <div class="container px-6 py-4 mx-auto lg:flex lg:items-center">
+        <div class="flex items-center justify-between w-full">
+          <a href="#">
+            <img class="w-auto h-6 sm:h-7" src="https://merakiui.com/images/full-logo.svg" alt="Logo">
+          </a>
+          <button @click="toggle()" class="lg:hidden text-gray-500 dark:text-gray-200">
+            <!-- Ícono Hamburguesa -->
+            <svg x-show="!isOpen" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 8h16M4 16h16" />
+            </svg>
+            <!-- Ícono Cerrar -->
+            <svg x-show="isOpen" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <div :class="isOpen ? 'block' : 'hidden'" class="w-full lg:flex lg:items-center lg:justify-between lg:w-auto">
+          <div class="mt-4 lg:mt-0 lg:flex lg:items-center">
+            <a href="#" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600">Inicio</a>
+            <a href="#" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600">Servicios</a>
+            <a href="#" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600">Precios</a>
+            <a href="#" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600">Contacto</a>     
+               
+            <!-- Dropdown SIMPLE existente -->
+            <div class="relative inline-block" x-data="{ ddOpen: false }">
+              <button @click="ddOpen = !ddOpen" class="ml-4 flex items-center px-5 py-2 bg-gray-800 text-white font-medium rounded">
+                Dropdown
+                <svg class="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 14.25L2.312 7 3.312 6 10 12.531 16.688 6 17.688 7z" />
+                </svg>
+              </button>
+              <div x-show="ddOpen" @click.outside="ddOpen = false" x-transition class="absolute z-50 mt-2 bg-gray-800 rounded shadow w-40">
+                <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Dashboard</a>
+                <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Preview</a>
+                <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Button</a>
+                <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Subscribe</a>
+              </div>
+            </div>
+            <!-- Fin Dropdown SIMPLE existente -->
+              <!-- Toggle Switch para modo oscuro -->
+              <label class="themeSwitcherTwo relative inline-flex cursor-pointer select-none items-center p-4">
+                <input type="checkbox" id="toggleSwitch" class="sr-only" />
+                
+                <span class="label flex items-center text-sm font-medium text-black">
+                  Light
+                </span>
+              
+                <span id="switchSlider" class="slider mx-4 flex h-8 w-[60px] items-center rounded-full p-1 duration-200 bg-[#CCCCCE]">
+                  <span id="switchDot" class="dot h-6 w-6 rounded-full bg-white duration-200"></span>
+                </span>
+                <span class="label flex items-center text-sm font-medium text-black">
+                  Dark
+                </span>
+              </label>
+              <!-- FIN Toggle Switch para modo oscuro -->
+     
           </div>
         </div>
       </div>
-    </div>
+    </nav>
+    <!-- FIN NAVBAR -->
+
+    <main class="flex-1 p-6 space-y-6">
+
+   
+
+    
+          
+      <!-- FORMULARIO (form.html) -->
+      <section class="bg-white dark:bg-gray-900 p-6 rounded shadow">
+        <h3 class="text-lg font-semibold mb-4">Contáctanos</h3>
+        <form class="max-w-md bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-md space-y-4">
+          <div>
+            <label class="block text-gray-700 dark:text-gray-200">Nombre</label>
+            <input type="text" class="w-full border border-gray-300 rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label class="block text-gray-700 dark:text-gray-200">Email</label>
+            <input type="email" class="w-full border border-gray-300 rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label class="block text-gray-700 dark:text-gray-200">Mensaje</label>
+            <textarea class="w-full border border-gray-300 rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+          </div>
+          <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg">
+            Enviar
+          </button>
+        </form>
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white dark:bg-gray-800 px-6 py-4">
+
+         <!-- CTA -->
+         <section class="bg-white dark:bg-gray-900 px-6 py-8 rounded shadow">
+          <div class="text-center">
+            <h2 class="text-xl font-semibold">Diseño y creación de páginas web con aplicaciones de inteligencia artificial</h2>
+            <p class="mt-4 text-gray-500 dark:text-gray-400">Creamos soluciones modernas e inteligentes para llevar tu presencia digital al siguiente nivel.</p>
+            <div class="mt-6 flex justify-center gap-4">
+              <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500">Ver Demo</button>
+              <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700">
+                Comenzar
+              </button>
+  
+          
+        </section>
+      <hr class="my-4 border-gray-200 dark:border-gray-700" />
+      <div class="flex flex-col items-center sm:flex-row sm:justify-between">
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+          © 2023. All Rights Reserved.
+        </p>
+        <div class="flex mt-3 space-x-4 sm:mt-0">
+          <a href="#" class="text-sm text-gray-500 dark:hover:text-gray-300 hover:text-gray-800">Teams</a>
+          <a href="#" class="text-sm text-gray-500 dark:hover:text-gray-300 hover:text-gray-800">Privacy</a>
+          <a href="#" class="text-sm text-gray-500 dark:hover:text-gray-300 hover:text-gray-800">Cookies</a>
+        </div>
+      </div>
+    </footer>
   </div>
+  <script src="./index.js"></script>
+  <script src="../public/components/scripts/multilevel.js"></script>
 </body>
-<script src="./index.js"></script>
 </html>

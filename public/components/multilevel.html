@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi Level</title>
+    <link href="../../src/output.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+<body>
+<div class="align-middle inline-block min-w-full py-2 sm:px- lg:px-8">
+    <div x-data="multilevel" class="relative inline-block ">
+        <!-- Dropdown toggle button -->
+        <button x-bind="trigger" class="relative z-10 block p-2 text-gray-700 bg-white border border-transparent rounded-md dark:text-white focus:border-blue-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-blue-300 dark:focus:ring-blue-400 focus:ring dark:bg-gray-800 focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                <path :d="pathSvg" />
+            </svg>
+        </button>
+    
+        <!-- Dropdown menu -->
+        <div x-bind="dialogue" class="absolute right-0 z-20 w-48 py-2 mt-2 mx-auto origin-top-right bg-white rounded-md shadow-xl dark:bg-gray-800"
+        >
+        <template x-for="item in items">
+            <a :href="item.URL" class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+                <span x-text="item.Text"></span>
+                <template x-if="item.Text === 'Keyboard shortcuts' || item.Text === 'Invite colleagues'">
+                <hr class="border-gray-200 dark:border-gray-700 ">
+        </template>
+            </a> 
+            </template>
+        </div>
+    </div>
+</div>
+<script src="./scripts/multilevel.js"></script>
+</body>
+</html>
